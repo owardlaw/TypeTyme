@@ -1,0 +1,39 @@
+.App {
+  text-align: center;
+  background-color: rgb(21, 55, 51);
+  height: 100vh;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
+  background-color: rgb(21, 55, 51);
+}
+
+
+.titles {
+  font-size: 25px;
+  margin-bottom: 1rem;
+  color: rgb(221, 221, 221);
+  margin-top: 20px;
+}
+
+#titles {
+  background-color: #182227;
+  padding: 10px;
+}
+
+.intro {
+  padding: 20px;
+  color: rgb(221, 221, 221);
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #182227;
+  border: 1px transparent #ccc;
+  border-radius: 4px;
+  box-shadow: 0 3px 5px rgb(0 0 0 / 0.2);
+}
