@@ -213,7 +213,7 @@ const Sentence = (props) => {
     <div style={{ backgroundColor: darkMode ? 'rgb(26, 26, 26)' : null }}>
       <div
         style={{
-          backgroundColor: flashRed ? '#B65150' : darkMode ? 'rgb(36, 36, 36)' : null,
+          backgroundColor: flashRed ? 'rgb(100, 63, 63)' : darkMode ? 'rgb(36, 36, 36)' : null,
         }}
         className={started ? 'typing-sentence' : 'sentence'}
       >
