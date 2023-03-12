@@ -4,13 +4,23 @@
   height: 100vh;
 }
 
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: monospace;
-  background-color: rgb(21, 55, 51);
+}
+
+.settings {
+  margin-top: 10px;
+  font-size: 20px;
+  padding: 5px;
+  width: 130px;
+  color: rgb(221, 221, 221);
+  background-color: #182227;
+  border: 1px transparent #ccc;
+  border-radius: 7px;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
 }
 
 

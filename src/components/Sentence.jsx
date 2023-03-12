@@ -6,8 +6,12 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import { Color } from '@tiptap/extension-color'
 import TextStyle from '@tiptap/extension-text-style'
 import FontFamily from '@tiptap/extension-font-family'
+import { Link } from 'react-router-dom';
 
-const Sentence = () => {
+const Sentence = (props) => {
+
+  const { darkMode } = props;
+
   const [cursorAtStart, setCursorAtStart] = useState(true);
   const [color, setColor] = useState("#808080");
   var randomWords = require('random-words');
@@ -105,9 +109,9 @@ const Sentence = () => {
     } else {
       setWrongKeys([...wrongKeys, event.key])
       setOccurrence(getSortedWrongKeys())
-      editor.chain().focus().setColor('rgb(255, 0, 0)').run();
       flashError();
-      // event.preventDefault();
+      event.preventDefault();
+      // editor.chain().focus().setColor('rgb(255, 0, 0)').run();
     }
 
   }, [editor, started, setWrongKeys, wrongKeys, setOccurrence, completed, promptFinished, setFlashRed]);
@@ -205,44 +209,51 @@ const Sentence = () => {
   }
 
 
-
   return (
-    <div style={{ backgroundColor: flashRed ? '#D7504D' : '' }}
-      className={started ? "typing-sentence" : 'sentence'}>
+    <div style={{ backgroundColor: darkMode ? 'rgb(26, 26, 26)' : null }}>
+      <div
+        style={{
+          backgroundColor: flashRed ? '#B65150' : darkMode ? 'rgb(36, 36, 36)' : null,
+        }}
+        className={started ? 'typing-sentence' : 'sentence'}
+      >
 
-     {true && ( <div className='buttons'>
-        <div id="reset-button" onClick={reset}>Next Prompt</div>
-        |
-        <div id="reset-button"> WPM: {wpm}</div>
-        |
-        <div id="reset-button"> CPM: {cpm}</div>
-        |
-        <div id="reset-button" onClick={() => setShowWrongKeys(!showWrongKeys)}>
-          {wrongKeys ? "Hide Errors" : "Show Errors"}
+        <div className={started ? "buttons-typing" : 'buttons'}>
+          <div id="reset-button" onClick={reset}>Next Prompt</div>
+          |
+          <div id="reset-button"> WPM: {wpm}</div>
+          |
+          <div id="reset-button"> CPM: {cpm}</div>
+          |
+          <div id="reset-button" onClick={() => setShowWrongKeys(!showWrongKeys)}>
+            {wrongKeys ? "Hide Errors" : "Show Errors"}
+          </div>
+          |
+          <div id={wordLength === 1 ? "button-selected" : "reset-button"} onClick={() => changeLength(1)}>1</div>
+          <div id={wordLength === 5 ? "button-selected" : "reset-button"} onClick={() => changeLength(5)}>5</div>
+          <div id={wordLength === 10 ? "button-selected" : "reset-button"} onClick={() => changeLength(10)}>10</div>
+          <div id={wordLength === 20 ? "button-selected" : "reset-button"} onClick={() => changeLength(20)}>20</div>
+          <div id={wordLength === 50 ? "button-selected" : "reset-button"} onClick={() => changeLength(50)}>50</div>
+          <div id={wordLength === 100 ? "button-selected" : "reset-button"} onClick={() => changeLength(100)}>100</div>
         </div>
-        |
-        <div id={wordLength === 1 ? "button-selected" : "reset-button"} onClick={() => changeLength(1)}>1</div>
-        <div id={wordLength === 5 ? "button-selected" : "reset-button"} onClick={() => changeLength(5)}>5</div>
-        <div id={wordLength === 10 ? "button-selected" : "reset-button"} onClick={() => changeLength(10)}>10</div>
-        <div id={wordLength === 20 ? "button-selected" : "reset-button"} onClick={() => changeLength(20)}>20</div>
-        <div id={wordLength === 50 ? "button-selected" : "reset-button"} onClick={() => changeLength(50)}>50</div>
-        <div id={wordLength === 100 ? "button-selected" : "reset-button"} onClick={() => changeLength(100)}>100</div>
-      </div>)}
+
+        {showWrongKeys && (
+          <div className="wrong-chars-container">
+            <p id='wrong-chars-title'>Wrong Keys</p>
+            <p id='wrong-chars'>
+              {occurrence.map((key, index) => (
+                <span key={index}>{key} </span>
+              ))}
+            </p>
+          </div>
+        )}
+
+        <EditorContent className="ProseMirror" editor={editor} />
+      </div>
       {promptFinished && (<p className="instructions">Press 'Enter' to reset.</p>)}
 
-      {showWrongKeys && (
-        <div className="wrong-chars-container">
-          <p id='wrong-chars-title'>Wrong Keys</p>
-          <p id='wrong-chars'>
-            {occurrence.map((key, index) => (
-              <span key={index}>{key} </span>
-            ))}
-          </p>
-        </div>
-      )}
-
-      <EditorContent className="check" editor={editor} />
     </div>
+
   )
 }
 
