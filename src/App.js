@@ -7,7 +7,7 @@ import { dark } from '@mui/material/styles/createPalette';
 function App() {
 
   const [showSettings, setShowSettings] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
 
   useEffect(() => {
     console.log(darkMode);
@@ -18,9 +18,16 @@ function App() {
       <br />
       <br />
 
-      <header className='intro'>
-        <h1 id="titles">Type Tyme (: </h1>
-        <p id="titles"> a simple typing timer</p>
+      <header className='intro' style={{ backgroundColor: darkMode ? 'rgb(36, 36, 36)' : 'rgb(200, 200, 200)',
+          color: darkMode ? 'white' : 'black'
+        }}>
+        <h1 id="titles" style={{ backgroundColor: darkMode ? 'rgb(36, 36, 36)' : 'rgb(200, 200, 200)',
+            color: darkMode ? 'white' : 'black'
+          }}>
+          Type Tyme (: </h1>
+
+        <p id="titles" style={{ backgroundColor: darkMode ? 'rgb(36, 36, 36)' : 'rgb(200, 200, 200)' }}> 
+        a simple typing timer</p>
 
         <button className="settings" onClick={() => setShowSettings(!showSettings)}>
           {showSettings ? "Timer" : "Settings"}

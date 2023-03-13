@@ -13,11 +13,11 @@ const Sentence = (props) => {
   const { darkMode } = props;
 
   const [cursorAtStart, setCursorAtStart] = useState(true);
-  const [color, setColor] = useState("#808080");
+  const [color, setColor] = useState("");
   var randomWords = require('random-words');
   const [wordLength, setWordLength] = useState(10);
   const [text, setText] = useState(randomWords({ exactly: wordLength, join: ' ' }));
-  const [prompt, setPrompt] = useState(`<p><span style="font-family: monospace; color:${color}">${text}</span></p>`);
+  const [prompt, setPrompt] = useState(`<p><span style="font-family: monospace; color: #808080">${text}</span></p>`);
 
   const [started, setStarted] = useState(false);
   const [completed, setCompleted] = useState(false);
@@ -105,7 +105,13 @@ const Sentence = (props) => {
 
     if (event.key === editor.getText().slice(pos - 1, pos)) {
       editor.commands.deleteRange({ from: pos, to: pos + 1 });
+
+      if (darkMode) {
       editor.chain().focus().setColor('rgb(255, 255, 255)').run();
+      }
+      else {
+        editor.chain().focus().setColor('rgb(0, 0, 0)').run();
+      }
     } else {
       setWrongKeys([...wrongKeys, event.key])
       setOccurrence(getSortedWrongKeys())
@@ -155,9 +161,9 @@ const Sentence = (props) => {
     let text = randomWords({ exactly: wordLength, join: ' ' });
     setText(text);
     setWordLength(wordLength);
-    setPrompt(`<p><span style="font-family: monospace; color:${color}">${text}</span></p>`);
+    setPrompt(`<p><span style="font-family: monospace; color: #808080">${text}</span></p>`);
 
-    editor.commands.setContent(`<p><span style="font-family: monospace; color:${color}">${text}</span></p>`);
+    editor.commands.setContent(`<p><span style="font-family: monospace; color: #808080">${text}</span></p>`);
     editor.commands.focus(1);
     setEndTime(0);
     setStartTime(0);
@@ -172,8 +178,8 @@ const Sentence = (props) => {
     let text = randomWords({ exactly: num, join: ' ' });
     setWordLength(num);
     setText(text);
-    setPrompt(`<p><span style="font-family: monospace; color:${color}">${text}</span></p>`);
-    editor.commands.setContent(`<p><span style="font-family: monospace; color:${color}">${text}</span></p>`);
+    setPrompt(`<p><span style="font-family: monospace; color: #808080}">${text}</span></p>`);
+    editor.commands.setContent(`<p><span style="font-family: monospace; color: #808080">${text}</span></p>`);
     editor.commands.focus(1);
   }
 
@@ -208,14 +214,34 @@ const Sentence = (props) => {
     }, 200)
   }
 
+  useEffect(() => {
+
+     let color;
+
+    if (darkMode && started) {
+      color = 'rgb(56, 56, 56)';
+    } else if (darkMode && !started) {
+      color = 'rgb(36, 36, 36)';
+    } else if (!darkMode && started) {
+      color = 'rgb(210, 210, 210)'
+    } else if (!darkMode && !started) {
+      color = 'rgb(200, 200, 200)'
+    }
+
+    setColor(color);
+
+  }, [darkMode, started, setColor])
+
+
+
 
   return (
     <div style={{ backgroundColor: darkMode ? 'rgb(26, 26, 26)' : null }}>
       <div
         style={{
-          backgroundColor: flashRed ? 'rgb(100, 63, 63)' : darkMode ? 'rgb(36, 36, 36)' : null,
+          backgroundColor: color,
         }}
-        className={started ? 'typing-sentence' : 'sentence'}
+        className='sentence'
       >
 
         <div className={started ? "buttons-typing" : 'buttons'}>

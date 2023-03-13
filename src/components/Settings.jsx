@@ -11,9 +11,12 @@ const Settings = (props) => {
 
   return (
 
-    <div className='settings-container' style={{ backgroundColor: darkMode ? 'rgb(36, 36, 36)' : null }}>
+    <div className='settings-container' style={{
+      backgroundColor: darkMode ? 'rgb(36, 36, 36)' : 'rgb(200, 200, 200)',
+      color: darkMode ? 'white' : 'black'
+    }}>
       <div className="wrapper" >
-        <input type="checkbox" id="hide-checkbox"/>
+        <input type="checkbox" id="hide-checkbox" />
         <label for="hide-checkbox" className="toggle" onClick={toggleDark} >
           <span className="toggle-button">
             <span className="crater crater-1"></span>
@@ -33,8 +36,8 @@ const Settings = (props) => {
           <span className="star star-7"></span>
           <span className="star star-8"></span>
         </label>
-        <p className='settings-text'>Dark Mode</p> 
-     </div>
+        <p className='settings-text'>Dark Mode</p>
+      </div>
     </div>
 
   )

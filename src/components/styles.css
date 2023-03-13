@@ -44,6 +44,8 @@
 
 .ProseMirror {
   outline: 0px solid transparent;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .ProseMirror span {
