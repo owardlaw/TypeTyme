@@ -107,7 +107,7 @@ const Sentence = (props) => {
       editor.commands.deleteRange({ from: pos, to: pos + 1 });
 
       if (darkMode) {
-      editor.chain().focus().setColor('rgb(255, 255, 255)').run();
+        editor.chain().focus().setColor('rgb(255, 255, 255)').run();
       }
       else {
         editor.chain().focus().setColor('rgb(0, 0, 0)').run();
@@ -216,7 +216,7 @@ const Sentence = (props) => {
 
   useEffect(() => {
 
-     let color;
+    let color;
 
     if (darkMode && started) {
       color = 'rgb(56, 56, 56)';
@@ -244,7 +244,10 @@ const Sentence = (props) => {
         className='sentence'
       >
 
-        <div className={started ? "buttons-typing" : 'buttons'}>
+        <div className={started ? "buttons-typing" : 'buttons'}
+          style={{
+            backgroundColor: flashRed ? "#ba3c3c" : null
+          }}>
           <div id="reset-button" onClick={reset}>Next Prompt</div>
           |
           <div id="reset-button"> WPM: {wpm}</div>
@@ -274,7 +277,7 @@ const Sentence = (props) => {
           </div>
         )}
 
-        <EditorContent className="ProseMirror" editor={editor} />
+        <EditorContent editor={editor} />
       </div>
       {promptFinished && (<p className="instructions">Press 'Enter' to reset.</p>)}
 

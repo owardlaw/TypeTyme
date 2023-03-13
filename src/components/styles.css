@@ -69,9 +69,10 @@
 }
 
 #reset-button:hover {
-  background-color: #1d282e;
+  background-color: #2b2b2b;
   color: rgb(255, 255, 255);
-  border: 0px solid #ccc;
+  border: 1px transparent #ccc;
+  border-radius: 5px;
   padding: 1%;
   margin: 1.5%;
 }
@@ -87,7 +88,7 @@
 }
 
 .buttons {
-  background-color: #182227;
+  background-color: #191919;
   border: 0px transparent #ccc;
   border-radius: 5px;
   width: min(90%, 900px);
